@@ -23,7 +23,9 @@ authRoutes.post("/signup", validate({
             }
         })
     }
-}).post("/login", validate({
+})
+
+authRoutes.post("/login", validate({
     username: "string",
     password: "string"
 }), async (req, res) => {

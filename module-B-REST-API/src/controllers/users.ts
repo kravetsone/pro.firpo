@@ -18,13 +18,15 @@ export class Users {
         return repository.save(user)
     }
     static async signIn(login: string, password: string) {
-        const user = await repository.findOneBy({
+        return repository.findOneBy({
             login,
             password
         });
+    }
 
-        if(!user) return null;
-
-        return user;
+    static async signInByToken(token: string) {
+       return repository.findOneBy({
+            token
+        });
     }
 }
