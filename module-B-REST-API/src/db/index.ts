@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import {Room, User} from "./entities";
+import {Client, Room, User} from "./entities";
 
 export * from "./entities"
 
@@ -12,7 +12,7 @@ export const db = new DataSource({
     database: "test",
     synchronize: true,
     logging: true,
-    entities: [User, Room]
+    entities: [User, Room, Client]
 });
 
 db.initialize().then(() => console.log("[DB] Connected!"));

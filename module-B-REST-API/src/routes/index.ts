@@ -1,6 +1,8 @@
 import {Router} from "express";
 import {authRoutes} from "./auth";
 import {Users} from "../controllers";
+import {roomsRoutes} from "./rooms";
+import {clientsRoutes} from "./clients";
 
 export const routes = Router();
 
@@ -27,3 +29,6 @@ routes.use(async (req, res, next) => {
 
     next()
 });
+
+routes.use(roomsRoutes);
+routes.use(clientsRoutes);
