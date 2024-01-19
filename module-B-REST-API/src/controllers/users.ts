@@ -1,4 +1,5 @@
 import { db, User } from "../db";
+import {randomBytes} from "crypto";
 
 const repository = db.getRepository(User)
 
@@ -12,7 +13,18 @@ export class Users {
 
         user.login = login;
         user.password = password;
+        user.token = randomBytes(18).toString("hex")
 
         return repository.save(user)
+    }
+    static async signIn(login: string, password: string) {
+        const user = await repository.findOneBy({
+            login,
+            password
+        });
+
+        if(!user) return null;
+
+        return user;
     }
 }

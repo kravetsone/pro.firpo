@@ -23,4 +23,21 @@ authRoutes.post("/signup", validate({
             }
         })
     }
+}).post("/login", validate({
+    username: "string",
+    password: "string"
+}), async (req, res) => {
+    const user = await Users.signIn(req.body.username, req.body.password);
+    if(!user) return res.status(401).send({
+        message: "Unauthorized",
+        errors: {
+            login: "invalid credentials"
+        }
+    });
+
+    return res.json({
+        data: {
+            token_user: user.token
+        }
+    });
 })
