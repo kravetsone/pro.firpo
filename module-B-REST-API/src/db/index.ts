@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 
+export * from "./entities"
+
 export const db = new DataSource({
     type: "mysql",
     host: "localhost",
