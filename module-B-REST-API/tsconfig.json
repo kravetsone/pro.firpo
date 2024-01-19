@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "lib": ["ES6"],
     "outDir": "dist",
     "rootDir": "src",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
