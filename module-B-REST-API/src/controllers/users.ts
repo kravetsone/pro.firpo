@@ -7,7 +7,7 @@ export class Users {
     static async signUp(login: string, password: string) {
         if(await repository.existsBy({
             login
-        })) throw new Error("Username exists");
+        })) throw new Error("Username must be unique");
 
         const user = new User()
 

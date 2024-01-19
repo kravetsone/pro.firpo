@@ -17,9 +17,9 @@ authRoutes.post("/signup", validate({
             }
         });
     } catch (e) {
-        res.status(400).json({
+        if(e instanceof Error) return res.status(400).json({
             error: {
-                message: "Username must be unique"
+                message: e.message
             }
         })
     }
