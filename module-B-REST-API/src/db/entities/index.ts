@@ -18,3 +18,15 @@ export class User {
     })
     token: string
 }
+
+@Entity()
+export class Room {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    name: string;
+
+    @Column()
+    desc_data: string;
+}
