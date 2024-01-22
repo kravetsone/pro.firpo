@@ -50,7 +50,6 @@ hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
 		+req.params.hotelId,
 	);
 
-	// What is name and title...
 	return res.json({
 		data: {
 			name: room.name,

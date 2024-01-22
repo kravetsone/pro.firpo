@@ -1,6 +1,6 @@
 import { randomBytes } from "crypto";
 import { User, db } from "../db";
-import { APIError } from "../helpers";
+import { ValidationError } from "../helpers";
 
 const repository = db.getRepository(User);
 
@@ -11,8 +11,9 @@ export class UsersController {
 				login,
 			})
 		)
-			//TODO: throw validation error
-			throw new APIError("Username must be unique", 400);
+			throw new ValidationError({
+				username: ["Username must be unique"],
+			});
 
 		const user = new User();
 
