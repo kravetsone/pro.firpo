@@ -20,7 +20,7 @@ hotelsRoutes.post(
 
 		const hotel = await HotelsController.create(req.body);
 
-		return res.json({
+		return res.status(201).json({
 			data: hotel,
 		});
 	},
@@ -37,7 +37,7 @@ hotelsRoutes.get("/hotels", async (req, res) => {
 hotelsRoutes.delete("/hotel/:id", async (req, res) => {
 	await HotelsController.delete(+req.params.id);
 
-	return res.json({
+	return res.status(204).json({
 		data: {
 			message: "Deleted",
 		},
@@ -50,7 +50,7 @@ hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
 		+req.params.hotelId,
 	);
 
-	return res.json({
+	return res.status(201).json({
 		data: {
 			name: room.name,
 			title: hotel.name,

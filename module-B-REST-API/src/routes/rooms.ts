@@ -37,7 +37,7 @@ roomsRoutes.delete("/room/:id", async (req, res) => {
 
 	await RoomsController.delete(+req.params.id);
 
-	return res.json({
+	return res.status(204).json({
 		data: {
 			message: "Deleted",
 		},

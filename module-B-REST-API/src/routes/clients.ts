@@ -17,7 +17,7 @@ clientsRoutes.post(
 	async (req, res) => {
 		await ClientsController.create(req.body);
 
-		return res.json({
+		return res.status(201).json({
 			data: {
 				message: "Created",
 			},
@@ -49,7 +49,7 @@ clientsRoutes.patch(
 clientsRoutes.delete("/userdata/:id", async (req, res) => {
 	await ClientsController.delete(+req.params.id);
 
-	return res.json({
+	return res.status(204).json({
 		data: {
 			message: "Deleted",
 		},
