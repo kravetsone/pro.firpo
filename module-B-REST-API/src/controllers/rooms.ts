@@ -23,4 +23,10 @@ export class RoomsController {
 
         return repository.delete(id);
     }
+
+    static async find(id: number) {
+        return repository.findOneBy({
+            id
+        })
+    }
 }

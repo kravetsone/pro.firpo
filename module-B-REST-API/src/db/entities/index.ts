@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -54,6 +54,8 @@ export class Client {
     @Column()
     birth_date: string;
 
-    @Column()
-    id_childdata: number;
+    @OneToOne(() => Room)
+    @JoinTable({ name: "id_childdata" })
+    room: Room
+    
 }
