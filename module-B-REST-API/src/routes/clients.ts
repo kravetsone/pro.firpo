@@ -77,7 +77,7 @@ clientsRoutes.delete("/userdata/:id", async (req, res) => {
 clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
     try {
     await ClientsController.changeRoom(+req.params.userId, +req.params.roomId)
-    
+
     return res.json({
         data: {
             message: "Changed"
@@ -90,4 +90,8 @@ clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
             }
         })
     }
+})
+
+clientsRoutes.get("/usersinroom", async (req, res) => {
+    
 })

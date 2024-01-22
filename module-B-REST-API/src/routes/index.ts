@@ -24,6 +24,7 @@ routes.use(async (req, res, next) => {
         }
     });
 
+    //@ts-ignore ts-node bug
     req.user = user
 
     next()
