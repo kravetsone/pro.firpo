@@ -69,41 +69,23 @@ clientsRoutes.patch(
 );
 
 clientsRoutes.delete("/userdata/:id", async (req, res) => {
-	try {
-		await ClientsController.delete(+req.params.id);
+	await ClientsController.delete(+req.params.id);
 
-		return {
-			data: {
-				message: "Deleted",
-			},
-		};
-	} catch (e) {
-		if (e instanceof Error)
-			return res.status(400).json({
-				error: {
-					message: e.message,
-				},
-			});
-	}
+	return res.json({
+		data: {
+			message: "Deleted",
+		},
+	});
 });
 
 clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
-	try {
-		await ClientsController.changeRoom(+req.params.userId, +req.params.roomId);
+	await ClientsController.changeRoom(+req.params.userId, +req.params.roomId);
 
-		return res.json({
-			data: {
-				message: "Changed",
-			},
-		});
-	} catch (e) {
-		if (e instanceof Error)
-			return res.status(400).json({
-				error: {
-					message: e.message,
-				},
-			});
-	}
+	return res.json({
+		data: {
+			message: "Changed",
+		},
+	});
 });
 
 clientsRoutes.get("/usersinroom", async (req, res) => {

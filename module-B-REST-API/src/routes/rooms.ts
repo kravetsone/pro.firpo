@@ -38,20 +38,11 @@ roomsRoutes.delete("/room/:id", async (req, res) => {
 			},
 		});
 
-	try {
-		await RoomsController.delete(+req.params.id);
+	await RoomsController.delete(+req.params.id);
 
-		return res.json({
-			data: {
-				message: "Deleted",
-			},
-		});
-	} catch (e) {
-		if (e instanceof Error)
-			return res.status(403).json({
-				error: {
-					message: e.message,
-				},
-			});
-	}
+	return res.json({
+		data: {
+			message: "Deleted",
+		},
+	});
 });

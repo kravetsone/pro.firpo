@@ -11,22 +11,13 @@ authRoutes.post(
 		password: { type: "string" },
 	}),
 	async (req, res) => {
-		try {
-			await UsersController.signUp(req.body.username, req.body.password);
+		await UsersController.signUp(req.body.username, req.body.password);
 
-			return res.json({
-				data: {
-					message: "Administrator created",
-				},
-			});
-		} catch (e) {
-			if (e instanceof Error)
-				return res.status(400).json({
-					error: {
-						message: e.message,
-					},
-				});
-		}
+		return res.json({
+			data: {
+				message: "Administrator created",
+			},
+		});
 	},
 );
 

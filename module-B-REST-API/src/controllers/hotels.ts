@@ -1,5 +1,6 @@
 import { db } from "../db";
 import { Hotel } from "../db/entities/Hotels";
+import { APIError } from "../helpers";
 import { RoomsController } from "./rooms";
 
 const repository = db.getRepository(Hotel);
@@ -48,7 +49,7 @@ export class HotelsController {
 		const client = await repository.findOneBy({
 			id,
 		});
-		if (!client) throw new Error("Not found");
+		if (!client) throw new APIError("Not found", 403);
 
 		return repository.delete(id);
 	}
@@ -60,10 +61,10 @@ export class HotelsController {
 				rooms: true,
 			},
 		});
-		if (!hotel) throw new Error("Not found");
+		if (!hotel) throw new APIError("Not found", 403);
 
 		const room = await RoomsController.find(roomId);
-		if (!room) throw new Error("Not found");
+		if (!room) throw new APIError("Not found", 403);
 
 		hotel.rooms.push(room);
 

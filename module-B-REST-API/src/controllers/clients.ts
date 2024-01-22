@@ -1,4 +1,5 @@
 import { Client, Room, db } from "../db";
+import { APIError } from "../helpers";
 import { RoomsController } from "./rooms";
 
 const repository = db.getRepository(Client);
@@ -38,7 +39,7 @@ export class ClientsController {
 	static async create(data: ClientData) {
 		const room = await RoomsController.find(data.id_childdata);
 
-		if (!room) throw new Error("Not found");
+		if (!room) throw new APIError("Not found", 403);
 
 		const client = new Client();
 
@@ -54,7 +55,7 @@ export class ClientsController {
 	static async update(id: number, data: ClientData) {
 		if (data.id_childdata) {
 			const room = await RoomsController.find(data.id_childdata);
-			if (!room) throw new Error("Not found");
+			if (!room) throw new APIError("Not found", 403);
 
 			data.room = room;
 		}
@@ -66,7 +67,7 @@ export class ClientsController {
 		const client = await repository.findOneBy({
 			id,
 		});
-		if (!client) throw new Error("Not found");
+		if (!client) throw new APIError("Not found", 403);
 
 		return repository.delete(id);
 	}
@@ -75,10 +76,10 @@ export class ClientsController {
 		const client = await repository.findOneBy({
 			id: clientId,
 		});
-		if (!client) throw new Error("Not found");
+		if (!client) throw new APIError("Not found", 403);
 
 		const room = await RoomsController.find(roomId);
-		if (!room) throw new Error("Not found");
+		if (!room) throw new APIError("Not found", 403);
 
 		client.room = room;
 

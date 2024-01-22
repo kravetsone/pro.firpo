@@ -1,4 +1,5 @@
 import { Room, db } from "../db";
+import { APIError } from "../helpers";
 
 const repository = db.getRepository(Room);
 
@@ -22,7 +23,7 @@ export class RoomsController {
 				id,
 			}))
 		)
-			throw new Error("Not found");
+			throw new APIError("Not found", 403);
 
 		return repository.delete(id);
 	}

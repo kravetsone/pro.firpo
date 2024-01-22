@@ -35,22 +35,13 @@ hotelsRoutes.get("/hotels", async (req, res) => {
 });
 
 hotelsRoutes.delete("/hotel/:id", async (req, res) => {
-	try {
-		await HotelsController.delete(+req.params.id);
+	await HotelsController.delete(+req.params.id);
 
-		return res.json({
-			data: {
-				message: "Deleted",
-			},
-		});
-	} catch (e) {
-		if (e instanceof Error)
-			return res.status(400).json({
-				error: {
-					message: e.message,
-				},
-			});
-	}
+	return res.json({
+		data: {
+			message: "Deleted",
+		},
+	});
 });
 
 hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
