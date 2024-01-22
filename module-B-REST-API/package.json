@@ -11,6 +11,7 @@
    "author": "",
    "license": "ISC",
    "dependencies": {
+      "@biomejs/biome": "^1.5.2",
       "config": "^3.3.10",
       "cors": "^2.8.5",
       "cross-env": "^7.0.3",

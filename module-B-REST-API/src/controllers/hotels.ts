@@ -2,71 +2,71 @@ import { db } from "../db";
 import { Hotel } from "../db/entities/Hotels";
 import { RoomsController } from "./rooms";
 
-const repository = db.getRepository(Hotel)
+const repository = db.getRepository(Hotel);
 
 export class HotelsController {
-    static async validateUnique(data: Hotel) {
-        const nonUnique = await repository.findBy([
-            {name: data.name},
-            {number: data.number}
-        ])
+	static async validateUnique(data: Hotel) {
+		const nonUnique = await repository.findBy([
+			{ name: data.name },
+			{ number: data.number },
+		]);
 
-        if(!nonUnique.length) return null;
+		if (!nonUnique.length) return null;
 
-        const errors: Record<string, string[]> = {};
+		const errors: Record<string, string[]> = {};
 
-        if(nonUnique.find(x => x.name === data.name)) errors.name = ["The name must be unique"];
-        if(nonUnique.find(x => x.number === data.number)) errors.number = ["The number must be unique"];
+		if (nonUnique.find((x) => x.name === data.name))
+			errors.name = ["The name must be unique"];
+		if (nonUnique.find((x) => x.number === data.number))
+			errors.number = ["The number must be unique"];
 
-        return {
-            "message": "The given data was invalid.",
-            "errors": errors
-        }
-    }
+		return {
+			message: "The given data was invalid.",
+			errors: errors,
+		};
+	}
 
-    static async create(data: Hotel) {
-        const hotel = new Hotel();
+	static async create(data: Hotel) {
+		const hotel = new Hotel();
 
-        hotel.name = data.name;
-        hotel.number = data.number;
+		hotel.name = data.name;
+		hotel.number = data.number;
 
-        return repository.save(hotel);
-    }
+		return repository.save(hotel);
+	}
 
-    static async list() {
-        return repository.find({
-            select: {
-                name: true,
-                number: true
-            }
-        })
-    }
+	static async list() {
+		return repository.find({
+			select: {
+				name: true,
+				number: true,
+			},
+		});
+	}
 
-    static async delete(id: number) {
-        const client = await repository.findOneBy({
-            id
-        })
-        if(!client) throw new Error("Not found")
+	static async delete(id: number) {
+		const client = await repository.findOneBy({
+			id,
+		});
+		if (!client) throw new Error("Not found");
 
-        return repository.delete(id)
-    }
+		return repository.delete(id);
+	}
 
-    static async setRoom(roomId: number, hotelId: number){
-            const hotel = await repository.findOne({
-                where: {id: hotelId,},
-                relations: {
-                    rooms: true
-                }
-                
-            })
-            if(!hotel) throw new Error("Not found")
-    
-            const room = await RoomsController.find(roomId)
-            if(!room) throw new Error("Not found")
-    
-            hotel.rooms.push(room);
-    
-            return [hotel, room];
-        
-    }
+	static async setRoom(roomId: number, hotelId: number) {
+		const hotel = await repository.findOne({
+			where: { id: hotelId },
+			relations: {
+				rooms: true,
+			},
+		});
+		if (!hotel) throw new Error("Not found");
+
+		const room = await RoomsController.find(roomId);
+		if (!room) throw new Error("Not found");
+
+		hotel.rooms.push(room);
+
+		return [hotel, room];
+	}
 }

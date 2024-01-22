@@ -1,32 +1,35 @@
-import { db, User } from "../db";
-import {randomBytes} from "crypto";
+import { randomBytes } from "crypto";
+import { User, db } from "../db";
 
-const repository = db.getRepository(User)
+const repository = db.getRepository(User);
 
 export class UsersController {
-    static async signUp(login: string, password: string) {
-        if(await repository.existsBy({
-            login
-        })) throw new Error("Username must be unique");
+	static async signUp(login: string, password: string) {
+		if (
+			await repository.existsBy({
+				login,
+			})
+		)
+			throw new Error("Username must be unique");
 
-        const user = new User()
+		const user = new User();
 
-        user.login = login;
-        user.password = password;
-        user.token = randomBytes(18).toString("hex")
+		user.login = login;
+		user.password = password;
+		user.token = randomBytes(18).toString("hex");
 
-        return repository.save(user)
-    }
-    static async signIn(login: string, password: string) {
-        return repository.findOneBy({
-            login,
-            password
-        });
-    }
+		return repository.save(user);
+	}
+	static async signIn(login: string, password: string) {
+		return repository.findOneBy({
+			login,
+			password,
+		});
+	}
 
-    static async signInByToken(token: string) {
-       return repository.findOneBy({
-            token
-        });
-    }
+	static async signInByToken(token: string) {
+		return repository.findOneBy({
+			token,
+		});
+	}
 }

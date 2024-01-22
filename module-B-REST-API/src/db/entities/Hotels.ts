@@ -3,19 +3,22 @@ import { Room } from "./Room";
 
 @Entity()
 export class Hotel {
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-    @Column({
-        unique: true
-    })
-    name: string;
+	@Column({
+		unique: true,
+	})
+	name: string;
 
-    @Column({
-        unique: true
-    })
-    number: number;
+	@Column({
+		unique: true,
+	})
+	number: number;
 
-    @OneToMany(() => Room, (room) => room.hotel)
-    rooms: Room[]
+	@OneToMany(
+		() => Room,
+		(room) => room.hotel,
+	)
+	rooms: Room[];
 }

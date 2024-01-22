@@ -1,45 +1,58 @@
-import {Router} from "express";
-import {validate} from "../helpers";
-import {UsersController} from "../controllers";
+import { Router } from "express";
+import { UsersController } from "../controllers";
+import { validate } from "../helpers";
 
-export const authRoutes = Router()
+export const authRoutes = Router();
 
-authRoutes.post("/signup", validate({
-    username: {type: "string"},
-    password: {type: "string"}
-}), async (req, res) => {
-    try {
-        await UsersController.signUp(req.body.username, req.body.password)
+authRoutes.post(
+	"/signup",
+	validate({
+		username: { type: "string" },
+		password: { type: "string" },
+	}),
+	async (req, res) => {
+		try {
+			await UsersController.signUp(req.body.username, req.body.password);
 
-        return res.json({
-            data: {
-                message: "Administrator created"
-            }
-        });
-    } catch (e) {
-        if(e instanceof Error) return res.status(400).json({
-            error: {
-                message: e.message
-            }
-        })
-    }
-})
+			return res.json({
+				data: {
+					message: "Administrator created",
+				},
+			});
+		} catch (e) {
+			if (e instanceof Error)
+				return res.status(400).json({
+					error: {
+						message: e.message,
+					},
+				});
+		}
+	},
+);
 
-authRoutes.post("/login", validate({
-    username: {type: "string"},
-    password: {type: "string"}
-}), async (req, res) => {
-    const user = await UsersController.signIn(req.body.username, req.body.password);
-    if(!user) return res.status(401).send({
-        message: "Unauthorized",
-        errors: {
-            login: "invalid credentials"
-        }
-    });
+authRoutes.post(
+	"/login",
+	validate({
+		username: { type: "string" },
+		password: { type: "string" },
+	}),
+	async (req, res) => {
+		const user = await UsersController.signIn(
+			req.body.username,
+			req.body.password,
+		);
+		if (!user)
+			return res.status(401).send({
+				message: "Unauthorized",
+				errors: {
+					login: "invalid credentials",
+				},
+			});
 
-    return res.json({
-        data: {
-            token_user: user.token
-        }
-    });
-})
+		return res.json({
+			data: {
+				token_user: user.token,
+			},
+		});
+	},
+);

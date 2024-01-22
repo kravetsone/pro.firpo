@@ -1,61 +1,69 @@
 import { Router } from "express";
-import { validate } from "../helpers";
 import { HotelsController } from "../controllers/hotels";
+import { validate } from "../helpers";
 
 export const hotelsRoutes = Router();
 
-hotelsRoutes.post("/hotel", validate({
-    name: {
-        type: "string"
-    },
-    number: {
-        type: "number"
-    }
-}), async (req, res) => {
-    const uniqueValidation = await HotelsController.validateUnique(req.body);
-    if(uniqueValidation) return res.status(400).json(uniqueValidation);
+hotelsRoutes.post(
+	"/hotel",
+	validate({
+		name: {
+			type: "string",
+		},
+		number: {
+			type: "number",
+		},
+	}),
+	async (req, res) => {
+		const uniqueValidation = await HotelsController.validateUnique(req.body);
+		if (uniqueValidation) return res.status(400).json(uniqueValidation);
 
-    const hotel = await HotelsController.create(req.body);
+		const hotel = await HotelsController.create(req.body);
 
-    return res.json({
-        data: hotel
-    })
-})
+		return res.json({
+			data: hotel,
+		});
+	},
+);
 
 hotelsRoutes.get("/hotels", async (req, res) => {
-    const list = await HotelsController.list();
+	const list = await HotelsController.list();
 
-    return res.json({
-        data: list
-    })
-})
+	return res.json({
+		data: list,
+	});
+});
 
 hotelsRoutes.delete("/hotel/:id", async (req, res) => {
-    try {
-        await HotelsController.delete(+req.params.id);
+	try {
+		await HotelsController.delete(+req.params.id);
 
-        return res.json({
-            data: {
-                message: "Deleted"
-            }
-        })
-    } catch (e) {
-        if(e instanceof Error) return res.status(400).json({
-            error: {
-                message: e.message
-            }
-        })
-    }
-})
+		return res.json({
+			data: {
+				message: "Deleted",
+			},
+		});
+	} catch (e) {
+		if (e instanceof Error)
+			return res.status(400).json({
+				error: {
+					message: e.message,
+				},
+			});
+	}
+});
 
 hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
-    const [hotel, room] = await HotelsController.setRoom(+req.params.roomId, +req.params.hotelId);
+	const [hotel, room] = await HotelsController.setRoom(
+		+req.params.roomId,
+		+req.params.hotelId,
+	);
 
-    // What is name and title...
-    return res.json({
-        data: {
-            name: room.name,
-            title: hotel.name
-        }
-    })
-})
+	// What is name and title...
+	return res.json({
+		data: {
+			name: room.name,
+			title: hotel.name,
+		},
+	});
+});
