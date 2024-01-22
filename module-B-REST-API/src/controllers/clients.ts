@@ -2,7 +2,7 @@ import {Client, db} from "../db";
 
 const repository = db.getRepository(Client);
 
-export class Clients {
+export class ClientsController {
     static async getUniqueValidation(client: Client) {
         const nonUnique = await repository.findBy([{
             fio: client.fio

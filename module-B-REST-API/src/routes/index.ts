@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {authRoutes} from "./auth";
-import {Users} from "../controllers";
+import {UsersController} from "../controllers";
 import {roomsRoutes} from "./rooms";
 import {clientsRoutes} from "./clients";
 
@@ -17,7 +17,7 @@ routes.use(async (req, res, next) => {
 
     const token = authorization.slice(7);
 
-    const user = await Users.signInByToken(token);
+    const user = await UsersController.signInByToken(token);
     if (!user) return res.status(401).json({
         error: {
             message: "Unauthorized"

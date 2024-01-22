@@ -2,7 +2,7 @@ import {db, Room} from "../db";
 
 const repository = db.getRepository(Room);
 
-export class Rooms {
+export class RoomsController {
     static async create(name: string, dec_data: string) {
         const room = new Room();
 

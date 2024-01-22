@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {validate} from "../helpers";
-import {Users} from "../controllers";
+import {UsersController} from "../controllers";
 
 export const authRoutes = Router()
 
@@ -9,7 +9,7 @@ authRoutes.post("/signup", validate({
     password: "string"
 }), async (req, res) => {
     try {
-        await Users.signUp(req.body.username, req.body.password)
+        await UsersController.signUp(req.body.username, req.body.password)
 
         return res.json({
             data: {
@@ -29,7 +29,7 @@ authRoutes.post("/login", validate({
     username: "string",
     password: "string"
 }), async (req, res) => {
-    const user = await Users.signIn(req.body.username, req.body.password);
+    const user = await UsersController.signIn(req.body.username, req.body.password);
     if(!user) return res.status(401).send({
         message: "Unauthorized",
         errors: {

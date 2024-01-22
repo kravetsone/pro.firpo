@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {validate} from "../helpers";
-import {Clients} from "../controllers/clients";
+import {ClientsController} from "../controllers";
 
 export const clientsRoutes = Router();
 
@@ -11,10 +11,10 @@ clientsRoutes.post("/register", validate({
     id_childdata: "string",
     birth_date: "string"
 }), async (req, res) => {
-    const uniqueValidation = await Clients.getUniqueValidation(req.body);
+    const uniqueValidation = await ClientsController.getUniqueValidation(req.body);
     if(uniqueValidation) return res.status(400).json(uniqueValidation);
 
-    await Clients.create(req.body)
+    await ClientsController.create(req.body)
 
     return res.json({
             data: {

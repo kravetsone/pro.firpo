@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {validate} from "../helpers";
-import {Rooms} from "../controllers/rooms";
+import {RoomsController} from "../controllers/rooms";
 
 export const roomsRoutes = Router();
 
@@ -9,7 +9,7 @@ roomsRoutes.post("/room",
         name: "string",
         desc_data: "string"
     }), async (req, res) => {
-    await Rooms.create(req.body.name, req.body.desc_data);
+    await RoomsController.create(req.body.name, req.body.desc_data);
 
     return res.json({
         data: {
@@ -19,7 +19,7 @@ roomsRoutes.post("/room",
 });
 
 roomsRoutes.get("/rooms", async (req, res) => {
-    const rooms = await Rooms.list();
+    const rooms = await RoomsController.list();
 
     return res.json({
         list: rooms
@@ -35,7 +35,7 @@ roomsRoutes.delete("/room/:id", async (req, res) => {
     });
 
     try {
-        await Rooms.delete(+req.params.id)
+        await RoomsController.delete(+req.params.id)
 
         return res.json({
                 "data": {

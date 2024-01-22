@@ -3,7 +3,7 @@ import {randomBytes} from "crypto";
 
 const repository = db.getRepository(User)
 
-export class Users {
+export class UsersController {
     static async signUp(login: string, password: string) {
         if(await repository.existsBy({
             login
