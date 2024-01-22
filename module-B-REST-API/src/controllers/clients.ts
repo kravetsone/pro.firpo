@@ -24,6 +24,7 @@ export class ClientsController {
             "errors": errors
         }
     }
+
     static async create(data: Client) {
         const client = new Client();
 
@@ -34,5 +35,9 @@ export class ClientsController {
         client.id_childdata = data.id_childdata;
 
         return repository.save(client)
+    }
+
+    static async update(id: number, data: Client) {
+        return repository.update(id, data);
     }
 }

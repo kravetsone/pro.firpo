@@ -6,8 +6,8 @@ export const roomsRoutes = Router();
 
 roomsRoutes.post("/room",
     validate({
-        name: "string",
-        desc_data: "string"
+        name: {type: "string"},
+        desc_data: {type: "string"}
     }), async (req, res) => {
     await RoomsController.create(req.body.name, req.body.desc_data);
 

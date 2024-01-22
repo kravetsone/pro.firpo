@@ -5,11 +5,11 @@ import {ClientsController} from "../controllers";
 export const clientsRoutes = Router();
 
 clientsRoutes.post("/register", validate({
-    fio: "string",
-    email: "string",
-    phone: "string",
-    id_childdata: "string",
-    birth_date: "string"
+    fio: {type: "string"},
+    email: {type: "string"},
+    phone: {type: "string"},
+    id_childdata: {type: "string"},
+    birth_date: {type: "string"}
 }), async (req, res) => {
     const uniqueValidation = await ClientsController.getUniqueValidation(req.body);
     if(uniqueValidation) return res.status(400).json(uniqueValidation);
@@ -21,5 +21,9 @@ clientsRoutes.post("/register", validate({
                 message: "Created"
             }
     })
-
 })
+
+clientsRoutes.post("/userdata/:id", async (req, res) => {
+    
+    await ClientsController.update(+req.params.id, req.body)
+});

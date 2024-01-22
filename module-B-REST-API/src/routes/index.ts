@@ -24,7 +24,6 @@ routes.use(async (req, res, next) => {
         }
     });
 
-    //@ts-expect-error why ts-node not see global types declaration....
     req.user = user
 
     next()

@@ -5,8 +5,8 @@ import {UsersController} from "../controllers";
 export const authRoutes = Router()
 
 authRoutes.post("/signup", validate({
-    username: "string",
-    password: "string"
+    username: {type: "string"},
+    password: {type: "string"}
 }), async (req, res) => {
     try {
         await UsersController.signUp(req.body.username, req.body.password)
@@ -26,8 +26,8 @@ authRoutes.post("/signup", validate({
 })
 
 authRoutes.post("/login", validate({
-    username: "string",
-    password: "string"
+    username: {type: "string"},
+    password: {type: "string"}
 }), async (req, res) => {
     const user = await UsersController.signIn(req.body.username, req.body.password);
     if(!user) return res.status(401).send({
