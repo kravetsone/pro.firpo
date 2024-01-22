@@ -54,4 +54,27 @@ export class ClientsController {
 
         return repository.update(id, data);
     }
+
+    static async delete(id: number) {
+        const client = await repository.findOneBy({
+            id
+        })
+        if(!client) throw new Error("Not found")
+
+        return repository.delete(id)
+    }
+
+    static async changeRoom(clientId: number, roomId: number) {
+        const client = await repository.findOneBy({
+            id: clientId
+        })
+        if(!client) throw new Error("Not found")
+
+        const room = await RoomsController.find(roomId)
+        if(!room) throw new Error("Not found")
+
+        client.room = room;
+
+        return repository.save(client)
+    }
 }

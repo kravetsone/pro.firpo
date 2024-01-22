@@ -31,7 +31,7 @@ clientsRoutes.post("/register", validate({
     }
 })
 
-clientsRoutes.post("/userdata/:id", validate({
+clientsRoutes.patch("/userdata/:id", validate({
     fio: {type: "string", optional: true},
     email: {type: "string", optional: true},
     phone: {type: "string", optional: true},
@@ -55,3 +55,39 @@ clientsRoutes.post("/userdata/:id", validate({
         })
     }
 });
+
+clientsRoutes.delete("/userdata/:id", async (req, res) => {
+    try {
+        await ClientsController.delete(+req.params.id);
+
+        return {
+            data: {
+                message: "Deleted"
+            }
+        }
+    } catch (e) {
+        if(e instanceof Error) return res.status(400).json({
+            error: {
+                message: e.message
+            }
+        })
+    }
+})
+
+clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
+    try {
+    await ClientsController.changeRoom(+req.params.userId, +req.params.roomId)
+    
+    return res.json({
+        data: {
+            message: "Changed"
+        }
+       }) 
+    } catch (e) {
+        if(e instanceof Error) return res.status(400).json({
+            error: {
+                message: e.message
+            }
+        })
+    }
+})
