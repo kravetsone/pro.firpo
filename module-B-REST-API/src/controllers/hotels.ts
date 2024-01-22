@@ -1,6 +1,6 @@
 import { db } from "../db";
 import { Hotel } from "../db/entities/Hotels";
-import { APIError } from "../helpers";
+import { APIError, ValidationError } from "../helpers";
 import { RoomsController } from "./rooms";
 
 const repository = db.getRepository(Hotel);
@@ -21,10 +21,7 @@ export class HotelsController {
 		if (nonUnique.find((x) => x.number === data.number))
 			errors.number = ["The number must be unique"];
 
-		return {
-			message: "The given data was invalid.",
-			errors: errors,
-		};
+		throw new ValidationError(errors);
 	}
 
 	static async create(data: Hotel) {

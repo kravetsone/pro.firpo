@@ -1,5 +1,5 @@
 import { Client, Room, db } from "../db";
-import { APIError } from "../helpers";
+import { APIError, ValidationError } from "../helpers";
 import { RoomsController } from "./rooms";
 
 const repository = db.getRepository(Client);
@@ -30,10 +30,7 @@ export class ClientsController {
 		if (nonUnique.find((x) => x.phone === client.phone))
 			errors.phone = ["The phone must be unique"];
 
-		return {
-			message: "The given data was invalid.",
-			errors: errors,
-		};
+		throw new ValidationError(errors);
 	}
 
 	static async create(data: ClientData) {

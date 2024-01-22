@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { ValidationError } from "./ValidationError";
 
 type ValidTypes = "boolean" | "string" | "number";
 interface Validation {
@@ -8,10 +9,7 @@ interface Validation {
 
 export function validate(schema: Record<string, Validation>) {
 	return (req: Request, res: Response, next: NextFunction) => {
-		const error: { message: string; errors: Record<string, string[]> } = {
-			message: "The given data was invalid.",
-			errors: {},
-		};
+		const errors: Record<string, string[]> = {};
 
 		const keys = Object.keys(schema);
 
@@ -23,12 +21,10 @@ export function validate(schema: Record<string, Validation>) {
 
 			if (req.body[x] && typeof req.body[x] !== schema[x].type)
 				errors.push(`The ${x} field must be ${schema[x]} type.`);
-
-			if (errors.length) error.errors[x] = errors;
 		}
 
-		if (!Object.keys(error.errors).length) return next();
+		if (!Object.keys(errors).length) return next();
 
-		return res.status(400).json(error);
+		throw new ValidationError(errors);
 	};
 }

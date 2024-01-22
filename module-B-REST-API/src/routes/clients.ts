@@ -13,28 +13,15 @@ clientsRoutes.post(
 		id_childdata: { type: "number" },
 		birth_date: { type: "string" },
 	}),
+	(req) => ClientsController.getUniqueValidation(req.body),
 	async (req, res) => {
-		const uniqueValidation = await ClientsController.getUniqueValidation(
-			req.body,
-		);
-		if (uniqueValidation) return res.status(400).json(uniqueValidation);
+		await ClientsController.create(req.body);
 
-		try {
-			await ClientsController.create(req.body);
-
-			return res.json({
-				data: {
-					message: "Created",
-				},
-			});
-		} catch (e) {
-			if (e instanceof Error)
-				return res.status(400).json({
-					error: {
-						message: e.message,
-					},
-				});
-		}
+		return res.json({
+			data: {
+				message: "Created",
+			},
+		});
 	},
 );
 
@@ -48,23 +35,14 @@ clientsRoutes.patch(
 		birth_date: { type: "string", optional: true },
 	}),
 	async (req, res) => {
-		try {
-			await ClientsController.update(+req.params.id, req.body);
+		await ClientsController.update(+req.params.id, req.body);
 
-			return res.json({
-				data: {
-					id: req.params.id,
-					message: "Updated",
-				},
-			});
-		} catch (e) {
-			if (e instanceof Error)
-				return res.status(400).json({
-					error: {
-						message: e.message,
-					},
-				});
-		}
+		return res.json({
+			data: {
+				id: req.params.id,
+				message: "Updated",
+			},
+		});
 	},
 );
 

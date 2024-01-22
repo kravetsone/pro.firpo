@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RoomsController } from "../controllers";
-import { validate } from "../helpers";
+import { ValidationError, validate } from "../helpers";
 
 export const roomsRoutes = Router();
 
@@ -31,11 +31,8 @@ roomsRoutes.get("/rooms", async (req, res) => {
 
 roomsRoutes.delete("/room/:id", async (req, res) => {
 	if (Number.isNaN(req.params.id))
-		return res.json({
-			message: "The given data was invalid.",
-			errors: {
-				id: ["The id in path params must be a number"],
-			},
+		throw new ValidationError({
+			id: ["The id in path params must be a number"],
 		});
 
 	await RoomsController.delete(+req.params.id);
