@@ -3,7 +3,6 @@ import {
 	Entity,
 	JoinTable,
 	ManyToOne,
-	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Room } from "./Room";

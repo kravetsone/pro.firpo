@@ -5,8 +5,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Client } from ".";
-import { Hotel } from "./Hotels";
+import { Client, Hotel } from ".";
 
 @Entity()
 export class Room {

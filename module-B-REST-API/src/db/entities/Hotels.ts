@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	JoinTable,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from "typeorm";
 import { Room } from "./Room";
 
 @Entity()
@@ -20,5 +26,6 @@ export class Hotel {
 		() => Room,
 		(room) => room.hotel,
 	)
+	@JoinTable()
 	rooms: Room[];
 }
