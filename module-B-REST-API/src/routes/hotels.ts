@@ -21,3 +21,41 @@ hotelsRoutes.post("/hotel", validate({
         data: hotel
     })
 })
+
+hotelsRoutes.get("/hotels", async (req, res) => {
+    const list = await HotelsController.list();
+
+    return res.json({
+        data: list
+    })
+})
+
+hotelsRoutes.delete("/hotel/:id", async (req, res) => {
+    try {
+        await HotelsController.delete(+req.params.id);
+
+        return res.json({
+            data: {
+                message: "Deleted"
+            }
+        })
+    } catch (e) {
+        if(e instanceof Error) return res.status(400).json({
+            error: {
+                message: e.message
+            }
+        })
+    }
+})
+
+hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
+    const [hotel, room] = await HotelsController.setRoom(+req.params.roomId, +req.params.hotelId);
+
+    // What is name and title...
+    return res.json({
+        data: {
+            name: room.name,
+            title: hotel.name
+        }
+    })
+})

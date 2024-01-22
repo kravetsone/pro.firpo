@@ -1,13 +1,14 @@
 import { db } from "../db";
 import { Hotel } from "../db/entities/Hotels";
+import { RoomsController } from "./rooms";
 
 const repository = db.getRepository(Hotel)
 
 export class HotelsController {
     static async validateUnique(data: Hotel) {
         const nonUnique = await repository.findBy([
-        {name: data.name},
-        {number: data.number}
+            {name: data.name},
+            {number: data.number}
         ])
 
         if(!nonUnique.length) return null;
@@ -30,5 +31,42 @@ export class HotelsController {
         hotel.number = data.number;
 
         return repository.save(hotel);
+    }
+
+    static async list() {
+        return repository.find({
+            select: {
+                name: true,
+                number: true
+            }
+        })
+    }
+
+    static async delete(id: number) {
+        const client = await repository.findOneBy({
+            id
+        })
+        if(!client) throw new Error("Not found")
+
+        return repository.delete(id)
+    }
+
+    static async setRoom(roomId: number, hotelId: number){
+            const hotel = await repository.findOne({
+                where: {id: hotelId,},
+                relations: {
+                    rooms: true
+                }
+                
+            })
+            if(!hotel) throw new Error("Not found")
+    
+            const room = await RoomsController.find(roomId)
+            if(!room) throw new Error("Not found")
+    
+            hotel.rooms.push(room);
+    
+            return [hotel, room];
+        
     }
 }
