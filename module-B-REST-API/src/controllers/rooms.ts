@@ -29,4 +29,12 @@ export class RoomsController {
             id
         })
     }
+
+    static async listWithClients() {
+        return repository.find({
+            relations: {
+                clients: true
+            }
+        })
+    }
 }

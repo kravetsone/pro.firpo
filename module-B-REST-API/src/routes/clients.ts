@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {validate} from "../helpers";
-import {ClientsController} from "../controllers";
+import {ClientsController, RoomsController} from "../controllers";
 
 export const clientsRoutes = Router();
 
@@ -93,5 +93,13 @@ clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
 })
 
 clientsRoutes.get("/usersinroom", async (req, res) => {
+    const list = await RoomsController.listWithClients();
     
+    return res.json({data: list.map(room => ({
+        name: room.name,
+        userdata: room.clients.map(client => ({
+            fio: client.fio,
+            phonenumber: client.phone
+        }))
+    }))})
 })

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from "typeorm";
 import { Client } from ".";
 
 @Entity()
@@ -12,6 +12,6 @@ export class Room {
     @Column()
     desc_data: string;
 
-    @OneToOne(() => Client, (client) => client.room)
-    client: Client
+    @OneToMany(() => Client, (client) => client.room)
+    clients: Client[]
 }

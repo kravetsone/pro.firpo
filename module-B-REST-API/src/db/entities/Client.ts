@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinTable, ManyToOne } from "typeorm";
 import { Room } from "./Room";
 
 @Entity()
@@ -24,7 +24,7 @@ export class Client {
     @Column()
     birth_date: string;
 
-    @OneToOne(() => Room, (room) => room.client)
+    @ManyToOne(() => Room, (room) => room.clients)
     @JoinTable({ name: "id_childdata" })
     room: Room
 }
