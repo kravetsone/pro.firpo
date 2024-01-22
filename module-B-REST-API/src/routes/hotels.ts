@@ -67,3 +67,21 @@ hotelsRoutes.get("/hotel/:hotelId/room/:roomId", async (req, res) => {
 		},
 	});
 });
+
+hotelsRoutes.get("/roomsinhotels", async (req, res) => {
+	const list = await HotelsController.listWithRooms();
+
+	return res.json({
+		data: list.map((hotel) => ({
+			title: hotel.name,
+			number: hotel.number,
+			data_children: hotel.rooms.map((room) => ({
+				name: room.name,
+				userdata: room.clients.map((client) => ({
+					fio: client.fio,
+					phonenumber: client.phone,
+				})),
+			})),
+		})),
+	});
+});

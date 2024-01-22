@@ -69,4 +69,14 @@ export class HotelsController {
 
 		return [hotel, room];
 	}
+
+	static async listWithRooms() {
+		return repository.find({
+			relations: {
+				rooms: {
+					clients: true,
+				},
+			},
+		});
+	}
 }
