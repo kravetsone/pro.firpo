@@ -65,6 +65,8 @@ export class HotelsController {
 
 		hotel.rooms.push(room);
 
+		await repository.save(hotel);
+
 		return [hotel, room];
 	}
 

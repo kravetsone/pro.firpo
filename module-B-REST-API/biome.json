@@ -10,7 +10,8 @@
                 "noStaticOnlyClass": "off"
             },
             "suspicious": {
-                "useValidTypeof": "off"
+                "useValidTypeof": "off",
+                "noExplicitAny": "off"
             },
             "recommended": true
         }
