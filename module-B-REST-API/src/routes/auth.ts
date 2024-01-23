@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UsersController } from "../controllers";
-import { validate } from "../helpers";
+import { asyncHandler, validate } from "../helpers";
 
 export const authRoutes = Router();
 
@@ -10,7 +10,7 @@ authRoutes.post(
 		username: { type: "string" },
 		password: { type: "string" },
 	}),
-	async (req, res) => {
+	asyncHandler(async (req, res) => {
 		await UsersController.signUp(req.body.username, req.body.password);
 
 		return res.json({
@@ -18,7 +18,7 @@ authRoutes.post(
 				message: "Administrator created",
 			},
 		});
-	},
+	}),
 );
 
 authRoutes.post(
@@ -27,7 +27,7 @@ authRoutes.post(
 		username: { type: "string" },
 		password: { type: "string" },
 	}),
-	async (req, res) => {
+	asyncHandler(async (req, res) => {
 		const user = await UsersController.signIn(
 			req.body.username,
 			req.body.password,
@@ -45,5 +45,5 @@ authRoutes.post(
 				token_user: user.token,
 			},
 		});
-	},
+	}),
 );

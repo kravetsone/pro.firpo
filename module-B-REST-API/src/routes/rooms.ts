@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { RoomsController } from "../controllers";
-import { ValidationError, validate } from "../helpers";
+import { ValidationError, asyncHandler, validate } from "../helpers";
 
 export const roomsRoutes = Router();
 
@@ -10,7 +10,7 @@ roomsRoutes.post(
 		name: { type: "string" },
 		desc_data: { type: "string" },
 	}),
-	async (req, res) => {
+	asyncHandler(async (req, res) => {
 		await RoomsController.create(req.body.name, req.body.desc_data);
 
 		return res.json({
@@ -18,28 +18,34 @@ roomsRoutes.post(
 				message: "Created",
 			},
 		});
-	},
+	}),
 );
 
-roomsRoutes.get("/rooms", async (req, res) => {
-	const rooms = await RoomsController.list();
+roomsRoutes.get(
+	"/rooms",
+	asyncHandler(async (req, res) => {
+		const rooms = await RoomsController.list();
 
-	return res.json({
-		list: rooms,
-	});
-});
-
-roomsRoutes.delete("/room/:id", async (req, res) => {
-	if (Number.isNaN(req.params.id))
-		throw new ValidationError({
-			id: ["The id in path params must be a number"],
+		return res.json({
+			list: rooms,
 		});
+	}),
+);
 
-	await RoomsController.delete(+req.params.id);
+roomsRoutes.delete(
+	"/room/:id",
+	asyncHandler(async (req, res) => {
+		if (Number.isNaN(req.params.id))
+			throw new ValidationError({
+				id: ["The id in path params must be a number"],
+			});
 
-	return res.status(204).json({
-		data: {
-			message: "Deleted",
-		},
-	});
-});
+		await RoomsController.delete(+req.params.id);
+
+		return res.status(204).json({
+			data: {
+				message: "Deleted",
+			},
+		});
+	}),
+);

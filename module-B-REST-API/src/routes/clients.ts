@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ClientsController, RoomsController } from "../controllers";
-import { validate } from "../helpers";
+import { asyncHandler, validate } from "../helpers";
 
 export const clientsRoutes = Router();
 
@@ -13,8 +13,7 @@ clientsRoutes.post(
 		id_childdata: { type: "number" },
 		birth_date: { type: "string" },
 	}),
-	(req) => ClientsController.getUniqueValidation(req.body),
-	async (req, res) => {
+	asyncHandler(async (req, res) => {
 		await ClientsController.create(req.body);
 
 		return res.status(201).json({
@@ -22,7 +21,7 @@ clientsRoutes.post(
 				message: "Created",
 			},
 		});
-	},
+	}),
 );
 
 clientsRoutes.patch(
@@ -34,7 +33,7 @@ clientsRoutes.patch(
 		id_childdata: { type: "number", optional: true },
 		birth_date: { type: "string", optional: true },
 	}),
-	async (req, res) => {
+	asyncHandler(async (req, res) => {
 		await ClientsController.update(+req.params.id, req.body);
 
 		return res.json({
@@ -43,39 +42,48 @@ clientsRoutes.patch(
 				message: "Updated",
 			},
 		});
-	},
+	}),
 );
 
-clientsRoutes.delete("/userdata/:id", async (req, res) => {
-	await ClientsController.delete(+req.params.id);
+clientsRoutes.delete(
+	"/userdata/:id",
+	asyncHandler(async (req, res) => {
+		await ClientsController.delete(+req.params.id);
 
-	return res.status(204).json({
-		data: {
-			message: "Deleted",
-		},
-	});
-});
+		return res.status(204).json({
+			data: {
+				message: "Deleted",
+			},
+		});
+	}),
+);
 
-clientsRoutes.get("/room/:roomId/userdata/:userId", async (req, res) => {
-	await ClientsController.changeRoom(+req.params.userId, +req.params.roomId);
+clientsRoutes.get(
+	"/room/:roomId/userdata/:userId",
+	asyncHandler(async (req, res) => {
+		await ClientsController.changeRoom(+req.params.userId, +req.params.roomId);
 
-	return res.json({
-		data: {
-			message: "Changed",
-		},
-	});
-});
+		return res.json({
+			data: {
+				message: "Changed",
+			},
+		});
+	}),
+);
 
-clientsRoutes.get("/usersinroom", async (req, res) => {
-	const list = await RoomsController.listWithClients();
+clientsRoutes.get(
+	"/usersinroom",
+	asyncHandler(async (req, res) => {
+		const list = await RoomsController.listWithClients();
 
-	return res.json({
-		data: list.map((room) => ({
-			name: room.name,
-			userdata: room.clients.map((client) => ({
-				fio: client.fio,
-				phonenumber: client.phone,
+		return res.json({
+			data: list.map((room) => ({
+				name: room.name,
+				userdata: room.clients.map((client) => ({
+					fio: client.fio,
+					phonenumber: client.phone,
+				})),
 			})),
-		})),
-	});
-});
+		});
+	}),
+);

@@ -34,6 +34,8 @@ export class ClientsController {
 	}
 
 	static async create(data: ClientData) {
+		await ClientsController.getUniqueValidation(data);
+
 		const room = await RoomsController.find(data.id_childdata);
 
 		if (!room) throw new APIError("Not found", 403);

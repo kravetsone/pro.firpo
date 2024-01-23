@@ -13,6 +13,7 @@ app.use(routes);
 
 //@ts-ignore Why error handler example throw TS Error? https://expressjs.com/en/guide/error-handling.html#writing-error-handlers
 app.use((err, req, res, next) => {
+	console.log(err);
 	if (err instanceof APIError) {
 		return res.status(err.status).json({
 			error: {
@@ -26,5 +27,13 @@ app.use((err, req, res, next) => {
 			errors: err.errors,
 		});
 	}
+});
+app.use((req, res) => {
+	console.log(req);
+	return res.status(404).send({
+		error: {
+			message: "Not found.",
+		},
+	});
 });
 app.listen(3001, "::", () => console.log("[SERVER] started"));

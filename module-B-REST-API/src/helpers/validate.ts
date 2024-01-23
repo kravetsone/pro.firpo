@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ValidationError } from "./ValidationError";
+import { asyncHandler } from "./asyncHandler";
 
 type ValidTypes = "boolean" | "string" | "number";
 interface Validation {
@@ -8,7 +9,7 @@ interface Validation {
 }
 
 export function validate(schema: Record<string, Validation>) {
-	return (req: Request, res: Response, next: NextFunction) => {
+	return asyncHandler((req: Request, res: Response, next: NextFunction) => {
 		const errors: Record<string, string[]> = {};
 
 		const keys = Object.keys(schema);
@@ -26,5 +27,5 @@ export function validate(schema: Record<string, Validation>) {
 		if (!Object.keys(errors).length) return next();
 
 		throw new ValidationError(errors);
-	};
+	});
 }
