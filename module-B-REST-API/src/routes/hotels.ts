@@ -39,6 +39,12 @@ hotelsRoutes.get(
 
 hotelsRoutes.delete(
 	"/hotel/:id",
+	validate(
+		{
+			id: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	asyncHandler(async (req, res) => {
 		await HotelsController.delete(+req.params.id);
 
@@ -52,6 +58,13 @@ hotelsRoutes.delete(
 
 hotelsRoutes.get(
 	"/hotel/:hotelId/room/:roomId",
+	validate(
+		{
+			roomId: { type: "string", isNotNan: true },
+			hotelId: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	asyncHandler(async (req, res) => {
 		const [hotel, room] = await HotelsController.setRoom(
 			+req.params.roomId,

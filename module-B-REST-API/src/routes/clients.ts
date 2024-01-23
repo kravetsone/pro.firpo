@@ -26,6 +26,12 @@ clientsRoutes.post(
 
 clientsRoutes.patch(
 	"/userdata/:id",
+	validate(
+		{
+			id: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	validate({
 		fio: { type: "string", optional: true },
 		email: { type: "string", optional: true },
@@ -47,6 +53,12 @@ clientsRoutes.patch(
 
 clientsRoutes.delete(
 	"/userdata/:id",
+	validate(
+		{
+			id: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	asyncHandler(async (req, res) => {
 		await ClientsController.delete(+req.params.id);
 
@@ -60,6 +72,13 @@ clientsRoutes.delete(
 
 clientsRoutes.get(
 	"/room/:roomId/userdata/:userId",
+	validate(
+		{
+			roomId: { type: "string", isNotNan: true },
+			userId: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	asyncHandler(async (req, res) => {
 		await ClientsController.changeRoom(+req.params.userId, +req.params.roomId);
 

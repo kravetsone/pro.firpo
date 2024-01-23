@@ -6,26 +6,37 @@ type ValidTypes = "boolean" | "string" | "number";
 interface Validation {
 	type: ValidTypes;
 	optional?: boolean;
+	isNotNan?: boolean;
 }
 
-export function validate(schema: Record<string, Validation>) {
+export function validate(
+	schemas: Record<string, Validation>,
+	source: keyof Request = "body",
+) {
 	return asyncHandler((req: Request, res: Response, next: NextFunction) => {
-		const errors: Record<string, string[]> = {};
+		const keysErrors: Record<string, string[]> = {};
 
-		const keys = Object.keys(schema);
+		const keys = Object.keys(schemas);
 
 		for (const x of keys) {
 			const errors: string[] = [];
+			const value = req[source][x];
+			const schema = schemas[x];
 
-			if (!req.body[x] && !schema[x].optional)
+			if (!value && !schema.optional)
 				errors.push(`The ${x} field is required.`);
 
-			if (req.body[x] && typeof req.body[x] !== schema[x].type)
-				errors.push(`The ${x} field must be ${schema[x]} type.`);
+			if (value && typeof value !== schema.type)
+				errors.push(`The ${x} field must be ${schema.type} type.`);
+
+			if (schema.isNotNan && Number.isNaN(+value))
+				errors.push(`The ${x} field from path params can't parse to number!`);
+
+			if (errors.length) keysErrors[x] = errors;
 		}
 
-		if (!Object.keys(errors).length) return next();
+		if (!Object.keys(keysErrors).length) return next();
 
-		throw new ValidationError(errors);
+		throw new ValidationError(keysErrors);
 	});
 }

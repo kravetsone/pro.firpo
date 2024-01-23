@@ -34,6 +34,12 @@ roomsRoutes.get(
 
 roomsRoutes.delete(
 	"/room/:id",
+	validate(
+		{
+			id: { type: "string", isNotNan: true },
+		},
+		"params",
+	),
 	asyncHandler(async (req, res) => {
 		if (Number.isNaN(req.params.id))
 			throw new ValidationError({
