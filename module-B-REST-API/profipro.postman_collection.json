@@ -1,0 +1,1252 @@
+{
+	"info": {
+		"_postman_id": "71bee10e-8716-42b5-aa7d-92c7a74d88d5",
+		"name": "profipro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13138957"
+	},
+	"item": [
+		{
+			"name": "Bearer",
+			"item": [
+				{
+					"name": "rooms",
+					"item": [
+						{
+							"name": "room",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"name\": \"Название2\",\r\n \"desc_data\": \"Описание2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/room",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"room"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n \"name\": \"Название2\",\r\n \"desc_data\": \"Описание2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/room",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"room"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "30"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e-4yATSD0WvUB7u1hhD6pspqfrMZ0\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:25:26 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"message\": \"Created\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "rooms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/rooms",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"rooms"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/rooms",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"rooms"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "76"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4c-k7VxYmdskt9PLc6tbG3wUed3CLU\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:20:35 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"list\": [\n        {\n            \"id\": 3,\n            \"name\": \"Название\",\n            \"desc_data\": \"Описание\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/room/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"room",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/room/:id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"room",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "33"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"21-j0CQ1nlha5JFXTEoGDnnHg2XBY0\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:14:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": {\n        \"message\": \"Not found\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "clients",
+					"item": [
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fio\": \"Ivanov Ivan Ivanovich\",\r\n    \"email\": \"ivan@wsr.ru\",\r\n    \"phone\": \"89001234567\",\r\n    \"id_childdata\": 3,\r\n    \"birth_date\": \"2000-03-12\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"fio\": \"Ivanov Ivan Ivanovich\",\r\n    \"email\": \"ivan@wsr.ru\",\r\n    \"phone\": \"89001234567\",\r\n    \"id_childdata\": 3,\r\n    \"birth_date\": \"2000-03-12\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/register",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "159"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"9f-TLJ5fLUO6Ixp8wFELAZ2Grr/s5g\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:23:48 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"The given data was invalid.\",\n    \"errors\": {\n        \"fio\": [\n            \"The fio must be unique\"\n        ],\n        \"email\": [\n            \"The email must be unique\"\n        ],\n        \"phone\": [\n            \"The phone must be unique\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "userdata/:id",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\": \"89231234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/userdata/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"userdata",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "userdata/:id",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phone\": \"89231234567\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/userdata/:id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"userdata",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "39"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"27-x1aKORVSfk5YGhT5nU68JAz6r6o\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:22:18 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"message\": \"Updated\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "userdata/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/userdata/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"userdata",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/userdata/:id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"userdata",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e-SBsdCMPyBv02Fq3RsFK6BBmf+/g\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:23:08 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "usersinroom",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/usersinroom",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"usersinroom"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/usersinroom",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"usersinroom"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "154"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"9a-Rv9T7fyhlw/ynYcyIoGHvkzFEXg\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:25:40 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"name\": \"Название2\",\n            \"userdata\": [\n                {\n                    \"fio\": \"Ivanov Ivan Ivanovich\",\n                    \"phonenumber\": \"89001234567\"\n                }\n            ]\n        },\n        {\n            \"name\": \"Название\",\n            \"userdata\": []\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/room/:roomId/userdata/:userId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"room",
+										":roomId",
+										"userdata",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "roomId",
+											"value": "4"
+										},
+										{
+											"key": "userId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "room/:roomId/userdata/:userId",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/room/:roomId/userdata/:userId",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"room",
+												":roomId",
+												"userdata",
+												":userId"
+											],
+											"variable": [
+												{
+													"key": "roomId",
+													"value": "4"
+												},
+												{
+													"key": "userId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "30"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e-+8jVdFfH57cvMjHA1oQ8XbJVLaE\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:25:46 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"message\": \"Changed\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "hotels",
+					"item": [
+						{
+							"name": "hotel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Название\",\r\n    \"number\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/hotel",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hotel"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Название\",\r\n    \"number\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/hotel",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"hotel"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "54"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"36-avFGh8icOZaqS7+BoZCH7C1Kp5g\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:27:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"Название\",\n        \"number\": 1,\n        \"id\": 1\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "hotels",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hotels",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hotels"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/hotels",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"hotels"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "49"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"31-Fbl3bcDMt0kYsFlGjE1paVDVrjE\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:29:24 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"name\": \"Название\",\n            \"number\": 1\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "hotel/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hotel/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hotel",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "hotel/:id",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/hotel/:id",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"hotel",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e-SBsdCMPyBv02Fq3RsFK6BBmf+/g\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:30:06 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "hotel/:userId/room/:roomId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/hotel/:hotelId/room/:roomId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"hotel",
+										":hotelId",
+										"room",
+										":roomId"
+									],
+									"variable": [
+										{
+											"key": "hotelId",
+											"value": "2"
+										},
+										{
+											"key": "roomId",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "hotel/:userId/room/:roomId",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/hotel/:hotelId/room/:roomId",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"hotel",
+												":hotelId",
+												"room",
+												":roomId"
+											],
+											"variable": [
+												{
+													"key": "hotelId",
+													"value": "2"
+												},
+												{
+													"key": "roomId",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "64"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"40-UyS9iBb2b6+Y1klZWtMN/6gNBdw\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:32:35 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"name\": \"Название2\",\n        \"title\": \"Название\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "roomsinhotels",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/roomsinhotels",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"roomsinhotels"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/roomsinhotels",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"roomsinhotels"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "170"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"aa-0MkMXbuKNQV4cr68VDW5/++Vdyc\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 23 Jan 2024 10:40:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"title\": \"Название\",\n            \"number\": 1,\n            \"data_children\": [\n                {\n                    \"name\": \"Название2\",\n                    \"userdata\": [\n                        {\n                            \"fio\": \"Ivanov Ivan Ivanovich\",\n                            \"phonenumber\": \"89001234567\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "2db8911bd2f4666c14257c99fd484d5a7cef",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"s\",\r\n    \"password\": \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/signup",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"s\",\r\n    \"password\": \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3001",
+			"type": "string"
+		}
+	]
+}
