@@ -14,8 +14,14 @@ export class UserController {
 		return repository.save(user);
 	}
 
-	static auth(options: Pick<User, "email" | "password">) {
+	static login(options: Pick<User, "email" | "password">) {
 		return repository.findOneBy(options);
+	}
+
+	static loginByToken(token: string) {
+		return repository.findOneBy({
+			token,
+		});
 	}
 
 	static async logout(token: string) {
