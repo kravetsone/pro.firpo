@@ -16,19 +16,17 @@ export class FileController {
 				files: true,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		user.files.push(
-			...files.map((x) => {
-				const file = new File();
-
-				file.file_id = x.file_id;
-				file.name = x.name;
-				file.owner = user;
-				file.accesses = [];
-
-				return file;
-			}),
+			...files.map((x) =>
+				repository.create({
+					file_id: x.file_id,
+					name: x.name,
+					owner: user,
+					accesses: [],
+				}),
+			),
 		);
 
 		await userRepository.save(user);
@@ -40,13 +38,13 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		const file = await repository.findOneBy({
 			file_id: fileId,
 		});
 		if (!file) throw new APIError(404, "Not found");
-		if (file.owner.id !== user.id) throw new APIError(405, "No access");
+		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");
 
 		const isFileNameExists = await repository.findOneBy({
 			name,
@@ -59,7 +57,7 @@ export class FileController {
 
 		file.name = name;
 
-		return await repository.save(file);
+		return repository.save(file);
 	}
 
 	static async remove(token: string, fileId: string) {
@@ -68,15 +66,15 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		const file = await repository.findOneBy({
 			file_id: fileId,
 		});
 		if (!file) throw new APIError(404, "Not found");
-		if (file.owner.id !== user.id) throw new APIError(405, "No access");
+		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");
 
-		return await repository.delete(file.file_id);
+		return repository.delete(file.file_id);
 	}
 
 	static async get(token: string, fileId: string) {
@@ -85,7 +83,7 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		const file = await repository.findOne({
 			where: { file_id: fileId },
@@ -98,7 +96,7 @@ export class FileController {
 			file.owner.id !== user.id ||
 			!file.accesses.find((x) => x.id === user.id)
 		)
-			throw new APIError(405, "No access");
+			throw new APIError(402, "Forbidden for you");
 
 		return file;
 	}
@@ -109,7 +107,7 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		const file = await repository.findOne({
 			where: { file_id: fileId },
@@ -118,7 +116,7 @@ export class FileController {
 			},
 		});
 		if (!file) throw new APIError(404, "File not found");
-		if (file.owner.id !== user.id) throw new APIError(405, "No access");
+		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");
 
 		const otherUser = await userRepository.findOneBy({
 			email,
@@ -136,7 +134,7 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		if (user.email === email) throw new APIError(400, "Тайлера здесь нет.");
 
@@ -147,7 +145,7 @@ export class FileController {
 			},
 		});
 		if (!file) throw new APIError(404, "File not found");
-		if (file.owner.id !== user.id) throw new APIError(405, "No access");
+		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");
 
 		const otherUser = await userRepository.findOneBy({
 			email,
@@ -168,7 +166,7 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		return repository.find({
 			where: { owner: user },
@@ -184,7 +182,7 @@ export class FileController {
 				token,
 			},
 		});
-		if (!user) throw new APIError(401, "No login");
+		if (!user) throw new APIError(403, "No login");
 
 		return repository.find({
 			where: { accesses: user },

@@ -5,11 +5,13 @@ const repository = db.getRepository(User);
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class UserController {
-	static register(user: Omit<User, "token">) {
-		return repository.create({
-			...user,
+	static register(data: Omit<User, "token">) {
+		const user = repository.create({
+			...data,
 			token: randomBytes(5).toString("hex"),
 		});
+
+		return repository.save(user);
 	}
 
 	static auth(options: Pick<User, "email" | "password">) {
