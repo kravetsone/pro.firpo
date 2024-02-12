@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { User } from "./entities";
 
 export const db = new DataSource({
 	type: "mysql",
@@ -9,7 +10,7 @@ export const db = new DataSource({
 	database: "file-api",
 	synchronize: true,
 	logging: true,
-	entities: [],
+	entities: [User, File],
 });
 
 db.initialize().then(() => console.log("[DATABASE] connected!"));
