@@ -1,18 +1,21 @@
 import { UserController } from "controllers";
+import { User } from "db";
 import { APIError } from "errors";
+import { FindOptionsRelations } from "typeorm";
 import { asyncHandler } from "./asyncHandler";
 
-export const auth = asyncHandler(async (req, res, next) => {
-	const authorization = req.header("authorization");
-	if (!authorization?.startsWith("Bearer "))
-		throw new APIError(401, "No login");
+export const auth = (relation: FindOptionsRelations<User>) =>
+	asyncHandler(async (req, res, next) => {
+		const authorization = req.header("authorization");
+		if (!authorization?.startsWith("Bearer "))
+			throw new APIError(401, "No login");
 
-	const token = authorization.slice(7);
+		const token = authorization.slice(7);
 
-	const user = await UserController.loginByToken(token);
-	if (!user) throw new APIError(401, "No login");
+		const user = await UserController.loginByToken(token);
+		if (!user) throw new APIError(401, "No login");
 
-	req.user = user;
+		req.user = user;
 
-	next();
-});
+		next();
+	});

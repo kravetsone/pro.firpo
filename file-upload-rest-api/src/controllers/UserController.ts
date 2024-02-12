@@ -24,12 +24,7 @@ export class UserController {
 		});
 	}
 
-	static async logout(token: string) {
-		const user = await repository.findOneBy({
-			token,
-		});
-		if (!user) return null;
-
+	static async logout(user: User) {
 		user.token = randomBytes(5).toString("hex");
 
 		repository.save(user);

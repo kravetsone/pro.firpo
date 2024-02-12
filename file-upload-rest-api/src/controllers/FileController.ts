@@ -7,17 +7,8 @@ const userRepository = db.getRepository(User);
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class FileController {
-	static async add(token: string, files: { name: string; file_id: string }[]) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-			relations: {
-				files: true,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	// need files relation
+	static async add(user: User, files: { name: string; file_id: string }[]) {
 		user.files.push(
 			...files.map((x) =>
 				repository.create({
@@ -32,14 +23,7 @@ export class FileController {
 		await userRepository.save(user);
 	}
 
-	static async rename(token: string, fileId: string, name: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async rename(user: User, fileId: string, name: string) {
 		const file = await repository.findOneBy({
 			file_id: fileId,
 		});
@@ -60,14 +44,7 @@ export class FileController {
 		return repository.save(file);
 	}
 
-	static async remove(token: string, fileId: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async remove(user: User, fileId: string) {
 		const file = await repository.findOneBy({
 			file_id: fileId,
 		});
@@ -77,14 +54,7 @@ export class FileController {
 		return repository.delete(file.file_id);
 	}
 
-	static async get(token: string, fileId: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async get(user: User, fileId: string) {
 		const file = await repository.findOne({
 			where: { file_id: fileId },
 			relations: {
@@ -101,14 +71,7 @@ export class FileController {
 		return file;
 	}
 
-	static async addAccess(token: string, fileId: string, email: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async addAccess(user: User, fileId: string, email: string) {
 		const file = await repository.findOne({
 			where: { file_id: fileId },
 			relations: {
@@ -128,14 +91,7 @@ export class FileController {
 		return repository.save(file);
 	}
 
-	static async removeAccess(token: string, fileId: string, email: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async removeAccess(user: User, fileId: string, email: string) {
 		if (user.email === email) throw new APIError(400, "Тайлера здесь нет.");
 
 		const file = await repository.findOne({
@@ -160,14 +116,7 @@ export class FileController {
 		return repository.save(file);
 	}
 
-	static async disk(token: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async disk(user: User) {
 		return repository.find({
 			where: { owner: user },
 			relations: {
@@ -176,14 +125,7 @@ export class FileController {
 		});
 	}
 
-	static async shared(token: string) {
-		const user = await userRepository.findOne({
-			where: {
-				token,
-			},
-		});
-		if (!user) throw new APIError(403, "No login");
-
+	static async shared(user: User) {
 		return repository.find({
 			where: { accesses: user },
 			relations: {
