@@ -129,4 +129,68 @@ export class FileController {
 
 		return repository.save(file);
 	}
+
+	static async removeAccess(token: string, fileId: string, email: string) {
+		const user = await userRepository.findOne({
+			where: {
+				token,
+			},
+		});
+		if (!user) throw new APIError(401, "No login");
+
+		if (user.email === email) throw new APIError(400, "Тайлера здесь нет.");
+
+		const file = await repository.findOne({
+			where: { file_id: fileId },
+			relations: {
+				accesses: true,
+			},
+		});
+		if (!file) throw new APIError(404, "File not found");
+		if (file.owner.id !== user.id) throw new APIError(405, "No access");
+
+		const otherUser = await userRepository.findOneBy({
+			email,
+		});
+		if (!otherUser) throw new APIError(404, "User not found");
+
+		const index = file.accesses.findIndex((x) => x.id === otherUser.id);
+		if (index === -1)
+			throw new APIError(400, "User does not have access to file");
+		file.accesses.splice(index, 1);
+
+		return repository.save(file);
+	}
+
+	static async disk(token: string) {
+		const user = await userRepository.findOne({
+			where: {
+				token,
+			},
+		});
+		if (!user) throw new APIError(401, "No login");
+
+		return repository.find({
+			where: { owner: user },
+			relations: {
+				accesses: true,
+			},
+		});
+	}
+
+	static async shared(token: string) {
+		const user = await userRepository.findOne({
+			where: {
+				token,
+			},
+		});
+		if (!user) throw new APIError(401, "No login");
+
+		return repository.find({
+			where: { accesses: user },
+			relations: {
+				accesses: true,
+			},
+		});
+	}
 }
