@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	ManyToMany,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from "typeorm";
+import { File } from "./File";
 
 //!NOTE - "strictPropertyInitialization": false, in tsconfig
 @Entity()
@@ -20,4 +27,16 @@ export class User {
 
 	@Column()
 	token: string;
+
+	@OneToMany(
+		() => File,
+		(file) => file.owner,
+	)
+	files: File[];
+
+	@ManyToMany(
+		() => File,
+		(user) => user.accesses,
+	)
+	accesses: File[];
 }

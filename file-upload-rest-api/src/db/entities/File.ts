@@ -9,9 +9,15 @@ export class File {
 	@Column({ unique: true })
 	name: string;
 
-	@ManyToOne(() => User)
+	@ManyToOne(
+		() => User,
+		(user) => user.files,
+	)
 	owner: User;
 
-	@ManyToMany(() => User)
+	@ManyToMany(
+		() => User,
+		(user) => user.accesses,
+	)
 	accesses: User[];
 }
