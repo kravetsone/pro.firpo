@@ -2,13 +2,14 @@ import cors from "cors";
 import Express, { NextFunction, Request, Response } from "express";
 import "./db";
 import { APIError, ValidationError } from "./errors";
-import { userRouter } from "./routes";
+import { fileRouter, userRouter } from "./routes";
 
 const express = Express();
 
 express.use(Express.json());
 express.use(cors());
 express.use(userRouter);
+express.use(fileRouter);
 
 express.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 	if (err instanceof APIError)
