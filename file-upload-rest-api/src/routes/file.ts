@@ -5,6 +5,7 @@ import multer from "multer";
 import { FileController } from "../controllers";
 import { File } from "../db";
 import { asyncHandler, auth } from "../helpers";
+import { validate } from "../helpers";
 
 const allowedFileExtensions = [
 	"doc",
@@ -105,5 +106,106 @@ fileRouter.post(
 		);
 
 		return files;
+	}),
+);
+
+fileRouter.patch(
+	"/files/:fileId",
+	auth(),
+	validate({
+		name: "string",
+	}),
+	asyncHandler(async (req, res) => {
+		await FileController.rename(req.user, req.params.fileId, req.body.name);
+
+		return res.json({
+			success: true,
+			message: "Renamed",
+		});
+	}),
+);
+
+fileRouter.delete(
+	"/files/:fileId",
+	auth(),
+	asyncHandler(async (req, res) => {
+		await FileController.remove(req.user, req.params.fileId);
+
+		return res.json({
+			success: true,
+			message: "File already deleted",
+		});
+	}),
+);
+
+fileRouter.get(
+	"/files/:fileId",
+	auth(),
+	asyncHandler(async (req, res) => {
+		const { file_id } = await FileController.get(req.user, req.params.fileId);
+
+		return res.sendFile(`${process.cwd()}/files/${file_id}`);
+	}),
+);
+
+fileRouter.post(
+	"/files/:fileId/accesses",
+	auth(),
+	validate({
+		email: "string",
+	}),
+	asyncHandler(async (req, res) => {
+		const { accesses, owner } = await FileController.addAccess(
+			req.user,
+			req.params.fileId,
+			req.body.email,
+		);
+
+		return res.json(
+			[
+				{
+					fullname: `${owner.first_name} ${owner.last_name}`,
+					email: owner.email,
+					type: "author",
+				},
+			].concat(
+				accesses.map((x) => ({
+					fullname: `${x.first_name} ${x.last_name}`,
+					email: x.email,
+					type: "co-author",
+				})),
+			),
+		);
+	}),
+);
+
+fileRouter.delete(
+	"/files/:fileId/accesses",
+	auth(),
+	validate({
+		email: "string",
+	}),
+	asyncHandler(async (req, res) => {
+		const { accesses, owner } = await FileController.removeAccess(
+			req.user,
+			req.params.fileId,
+			req.body.email,
+		);
+
+		return res.json(
+			[
+				{
+					fullname: `${owner.first_name} ${owner.last_name}`,
+					email: owner.email,
+					type: "author",
+				},
+			].concat(
+				accesses.map((x) => ({
+					fullname: `${x.first_name} ${x.last_name}`,
+					email: x.email,
+					type: "co-author",
+				})),
+			),
+		);
 	}),
 );
