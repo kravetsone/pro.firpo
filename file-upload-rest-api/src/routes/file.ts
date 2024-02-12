@@ -209,3 +209,48 @@ fileRouter.delete(
 		);
 	}),
 );
+
+fileRouter.get(
+	"/files/disk",
+	auth(),
+	asyncHandler(async (req, res) => {
+		const disk = await FileController.disk(req.user);
+
+		return res.json(
+			disk.map((file) => ({
+				name: file.name,
+				file_id: file.file_id,
+				url: `http://localhost:3213/files/${file.file_id}`,
+				accesses: [
+					{
+						fullname: `${file.owner.first_name} ${file.owner.last_name}`,
+						email: file.owner.email,
+						type: "author",
+					},
+				].concat(
+					file.accesses.map((x) => ({
+						fullname: `${x.first_name} ${x.last_name}`,
+						email: x.email,
+						type: "co-author",
+					})),
+				),
+			})),
+		);
+	}),
+);
+
+fileRouter.get(
+	"/files/shared",
+	auth(),
+	asyncHandler(async (req, res) => {
+		const shared = await FileController.shared(req.user);
+
+		return res.json(
+			shared.map((file) => ({
+				name: file.name,
+				file_id: file.file_id,
+				url: `http://localhost:3213/files/${file.file_id}`,
+			})),
+		);
+	}),
+);
