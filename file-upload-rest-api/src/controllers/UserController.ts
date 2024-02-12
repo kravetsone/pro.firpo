@@ -1,5 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { User, db } from "db";
+import { FindOptionsRelations } from "typeorm";
 
 const repository = db.getRepository(User);
 
@@ -18,15 +19,16 @@ export class UserController {
 		return repository.findOneBy(options);
 	}
 
-	static loginByToken(token: string) {
-		return repository.findOneBy({
-			token,
+	static loginByToken(token: string, relations: FindOptionsRelations<User>) {
+		return repository.findOne({
+			where: { token },
+			relations,
 		});
 	}
 
 	static async logout(user: User) {
 		user.token = randomBytes(5).toString("hex");
 
-		repository.save(user);
+		return repository.save(user);
 	}
 }
