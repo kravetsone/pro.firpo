@@ -1,4 +1,4 @@
-import { ValidationError } from "errors";
+import { ValidationError } from "../errors";
 import { asyncHandler } from "./asyncHandler";
 
 export type Types = "string" | "email" | "password";

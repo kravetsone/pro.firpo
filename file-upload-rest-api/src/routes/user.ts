@@ -1,6 +1,6 @@
-import { UserController } from "controllers";
 import { Router } from "express";
-import { asyncHandler, auth, validate } from "helpers";
+import { UserController } from "../controllers";
+import { asyncHandler, auth, validate } from "../helpers";
 
 export const userRouter = Router();
 

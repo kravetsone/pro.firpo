@@ -1,4 +1,4 @@
-import { User } from "db";
+import { User } from "./db";
 
 declare module "express-serve-static-core" {
 	interface Request {

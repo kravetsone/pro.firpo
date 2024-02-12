@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
-import { User, db } from "db";
 import { FindOptionsRelations } from "typeorm";
+import { User, db } from "../db";
 
 const repository = db.getRepository(User);
 

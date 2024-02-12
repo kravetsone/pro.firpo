@@ -1,6 +1,5 @@
-import { randomBytes } from "crypto";
-import { File, User, db } from "db";
-import { APIError, ValidationError } from "errors";
+import { File, User, db } from "../db";
+import { APIError, ValidationError } from "../errors";
 
 const repository = db.getRepository(File);
 const userRepository = db.getRepository(User);
