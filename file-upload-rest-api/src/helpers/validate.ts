@@ -20,7 +20,7 @@ export function validate(schemas: Record<string, Types>) {
 			if (schema === "string" && typeof value !== "string")
 				errors.push(`field ${key} not string`);
 			// [INFO] не забывать про эксейп .
-			if (schema === "email" && !/(.+)@(.+)\.(.+)/gi.test(schema))
+			if (schema === "email" && !/(.+)@(.+)\.(.+)/gi.test(value))
 				errors.push(`field ${key} not email`);
 
 			if (schema === "password") {
