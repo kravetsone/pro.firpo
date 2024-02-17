@@ -48,13 +48,14 @@ const upload = multer({
 export const fileRouter = Router();
 
 function getFileName(original: string, files: File[]) {
-	const index = 1;
+	let index = 1;
 	let filename = original;
 
 	while (files.find((x) => x.name === filename)) {
 		const ext = path.extname(filename);
 
 		filename = original.replace(ext, `(${index})${ext}`);
+		index++;
 	}
 
 	return filename;

@@ -3,7 +3,6 @@ import Express, { NextFunction, Request, Response } from "express";
 import "./db";
 import { APIError, ValidationError } from "./errors";
 import { fileRouter, userRouter } from "./routes";
-
 const express = Express();
 
 express.use(Express.json());
