@@ -59,11 +59,13 @@ export class FileController {
 			where: { file_id: fileId },
 			relations: {
 				accesses: true,
+				owner: true,
 			},
 		});
+		console.log(user, file);
 		if (!file) throw new APIError(404, "Not found");
 		if (
-			file.owner.id !== user.id ||
+			file.owner.id !== user.id &&
 			!file.accesses.find((x) => x.id === user.id)
 		)
 			throw new APIError(402, "Forbidden for you");

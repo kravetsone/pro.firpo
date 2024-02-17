@@ -113,19 +113,23 @@ fileRouter.post(
 
 fileRouter.get(
 	"/files/disk",
-	auth(),
+	auth({
+		files: {
+			accesses: true,
+		},
+	}),
 	asyncHandler(async (req, res) => {
-		const disk = await FileController.disk(req.user);
+		console.log(req.user.files);
 
 		return res.json(
-			disk.map((file) => ({
+			req.user.files.map((file) => ({
 				name: file.name,
 				file_id: file.file_id,
 				url: `http://localhost:3213/files/${file.file_id}`,
 				accesses: [
 					{
-						fullname: `${file.owner.first_name} ${file.owner.last_name}`,
-						email: file.owner.email,
+						fullname: `${req.user.first_name} ${req.user.last_name}`,
+						email: req.user.email,
 						type: "author",
 					},
 				].concat(
@@ -188,9 +192,14 @@ fileRouter.get(
 	"/files/:fileId",
 	auth(),
 	asyncHandler(async (req, res) => {
-		const { file_id } = await FileController.get(req.user, req.params.fileId);
+		const { file_id, name } = await FileController.get(
+			req.user,
+			req.params.fileId,
+		);
 
-		return res.sendFile(`${process.cwd()}/files/${file_id}`);
+		return res.sendFile(
+			`${process.cwd()}/files/${file_id}${path.extname(name)}`,
+		);
 	}),
 );
 
