@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {BASE_URL} from "../constants";
 
-export function SingUp() {
+export function SignUp() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,6 +42,6 @@ export function SingUp() {
         <input value={lastName} onInput={event => setLastName(event.currentTarget.value)}/>
         {"lastName" in errors && errors.lastName.join(", ")}
 
-        <input type="submit" onClick={register}/>
+        <button type="submit" onClick={register}>Зарегистрироваться</button>
     </div>
 }

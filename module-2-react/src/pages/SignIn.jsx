@@ -39,6 +39,6 @@ export function SignIn() {
         {"password" in errors && errors.password.join(", ")}
 
         {"auth" in errors && errors.auth}
-        <input type="submit" onClick={register}/>
+        <button onClick={register}>Авторизоваться</button>
     </div>
 }

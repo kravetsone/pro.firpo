@@ -1,19 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {SignIn} from "./pages/SignIn";
-import {SingUp} from "./pages/SingUp";
+import {SignUp} from "./pages/SignUp";
+import {Files} from "./pages/Files";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <SingUp/>
+		element: <SignUp/>
 	},
 	{
 		path: "/sign-in",
 		element: <SignIn/>
-	}
+	},
+	{path: "/files",
+	element: <Files/>}
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
