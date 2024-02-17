@@ -1,6 +1,7 @@
 import {
 	Column,
 	Entity,
+	JoinTable,
 	ManyToMany,
 	OneToMany,
 	PrimaryGeneratedColumn,
@@ -38,5 +39,6 @@ export class User {
 		() => File,
 		(user) => user.accesses,
 	)
+	@JoinTable()
 	accesses: File[];
 }

@@ -8,18 +8,19 @@ const userRepository = db.getRepository(User);
 export class FileController {
 	// need files relation
 	static async add(user: User, files: { name: string; file_id: string }[]) {
-		user.files.push(
-			...files.map((x) =>
-				repository.create({
-					file_id: x.file_id,
-					name: x.name,
-					owner: user,
-					accesses: [],
-				}),
+		return await Promise.all(
+			files.map(
+				async (x) =>
+					await repository.save(
+						repository.create({
+							file_id: x.file_id,
+							name: x.name,
+							owner: user,
+							accesses: [],
+						}),
+					),
 			),
 		);
-
-		await userRepository.save(user);
 	}
 
 	static async rename(user: User, fileId: string, name: string) {
