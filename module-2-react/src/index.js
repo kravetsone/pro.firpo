@@ -2,11 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {SignIn} from "./pages/SignIn";
+import {SingUp} from "./pages/SingUp";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <div>s</div>
+		element: <SingUp/>
+	},
+	{
+		path: "/sign-in",
+		element: <SignIn/>
 	}
 ])
 
