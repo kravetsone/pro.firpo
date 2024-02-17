@@ -4,6 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {SignIn} from "./pages/SignIn";
 import {SignUp} from "./pages/SignUp";
 import {Files} from "./pages/Files";
+import {Shared} from "./pages/Shared";
 
 const router = createBrowserRouter([
 	{
@@ -15,7 +16,9 @@ const router = createBrowserRouter([
 		element: <SignIn/>
 	},
 	{path: "/files",
-	element: <Files/>}
+	element: <Files/>},
+	{path: "/shared",
+	element: <Shared/>}
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
