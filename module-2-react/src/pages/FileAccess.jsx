@@ -58,7 +58,8 @@ export function FileAccess() {
     }
 
     return <div>
-        Доступы:
+        <button onClick={() => navigate("/files")}>Назад</button>
+        <p>Доступы:</p>
         <div>{accesses.map(access => <div>
             <p>{access.fullname} (<a href={`mailto:${access.email}`}>{access.email}</a>)</p>
             {access.type !== "author" && <button onClick={() => deleteAccess(access.email)}>Удалить доступ</button>}
