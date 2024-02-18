@@ -27,6 +27,22 @@ export function Files() {
         setFiles(data)
     }
 
+    async function deleteFile(fileId) {
+        const res = await fetch(`${BASE_URL}/files/${fileId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+
+        if (res.status === 401) {
+            localStorage.removeItem("token")
+            navigate("/sign-in")
+        }
+
+        fetchFiles()
+    }
+
     useEffect(() => {
         if (!localStorage.getItem("token")) return navigate("/sign-in")
 
@@ -46,7 +62,7 @@ export function Files() {
                     <p>{accessType[access.type]}</p>
                 </div>)}
             </div>
-            <button>Удалить</button>
+            <button onClick={() => deleteFile(file.file_id)}>Удалить</button>
             <button>Редактировать</button>
             <button>Изменить права</button>
         </div>)}

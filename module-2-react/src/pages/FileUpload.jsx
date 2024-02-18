@@ -26,6 +26,8 @@ export function FileUpload() {
             localStorage.removeItem("token")
             navigate("/sign-in")
         }
+
+        setFiles([...files, ...data])
     }
 
     useEffect(() => {
@@ -34,7 +36,8 @@ export function FileUpload() {
 
     return <div>
         <button onClick={() => navigate("/files")}>Назад</button>
-        <div>{files.map(file => file.name)}</div>
+        <div>{files.map(file =>
+            <p>{file.name} ({file.success ? "Успешно загружен" : "Произошла ошибка"})</p>)}</div>
         <div onDrag={e => upload([...e.dataTransfer.files])}>
             <input type="file" multiple onInput={e => upload([...e.currentTarget.files])}/>
         </div>
