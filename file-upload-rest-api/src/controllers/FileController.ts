@@ -11,23 +11,30 @@ export class FileController {
 	// need files relation
 	static async add(user: User, files: { name: string; file_id: string }[]) {
 		return await Promise.all(
-			files.map(
-				async (x) =>
-					await repository.save(
-						repository.create({
-							file_id: x.file_id,
-							name: x.name,
-							owner: user,
-							accesses: [],
-						}),
-					),
-			),
+			files.map(async (x) => {
+				const extension = path.extname(x.name);
+
+				await repository.save(
+					repository.create({
+						file_id: x.file_id,
+						name: x.name.replace(extension, ""),
+						extension,
+						owner: user,
+						accesses: [],
+					}),
+				);
+			}),
 		);
 	}
 
 	static async rename(user: User, fileId: string, name: string) {
-		const file = await repository.findOneBy({
-			file_id: fileId,
+		const file = await repository.findOne({
+			where: {
+				file_id: fileId,
+			},
+			relations: {
+				owner: true,
+			},
 		});
 		if (!file) throw new APIError(404, "Not found");
 		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");

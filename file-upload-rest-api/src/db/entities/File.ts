@@ -6,7 +6,10 @@ export class File {
 	@PrimaryColumn()
 	file_id: string;
 
-	@Column({ unique: true })
+	@Column()
+	extension: string;
+
+	@Column()
 	name: string;
 
 	@ManyToOne(

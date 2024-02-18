@@ -192,14 +192,12 @@ fileRouter.get(
 	"/files/:fileId",
 	auth(),
 	asyncHandler(async (req, res) => {
-		const { file_id, name } = await FileController.get(
+		const { file_id, extension, name } = await FileController.get(
 			req.user,
 			req.params.fileId,
 		);
 
-		return res.sendFile(
-			`${process.cwd()}/files/${file_id}${path.extname(name)}`,
-		);
+		return res.sendFile(`${process.cwd()}/files/${file_id}${extension}`);
 	}),
 );
 
