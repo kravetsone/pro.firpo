@@ -10,6 +10,7 @@ const accessType = {
 
 export function Files() {
     const navigate = useNavigate();
+
     const [files, setFiles] = useState([]);
 
     async function fetchFiles() {
@@ -63,7 +64,12 @@ export function Files() {
                 </div>)}
             </div>
             <button onClick={() => deleteFile(file.file_id)}>Удалить</button>
-            <button>Редактировать</button>
+            <button onClick={() => navigate(`/files/edit/${file.file_id}`, {
+                state: {
+                    name: file.name
+                }
+            })}>Редактировать
+            </button>
             <button>Изменить права</button>
         </div>)}
     </div>

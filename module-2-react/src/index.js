@@ -6,6 +6,7 @@ import {SignUp} from "./pages/SignUp";
 import {Files} from "./pages/Files";
 import {Shared} from "./pages/Shared";
 import {FileUpload} from "./pages/FileUpload";
+import {FileEdit} from "./pages/FileEdit";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: "/files/upload",
         element: <FileUpload/>
+    },
+    {
+        path: "/files/edit/:fileId",
+        element: <FileEdit/>
     },
     {
         path: "/shared",
