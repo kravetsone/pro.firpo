@@ -91,9 +91,12 @@ export class FileController {
 	}
 
 	static async addAccess(user: User, fileId: string, email: string) {
+		if (user.email === email) throw new APIError(400, "Тайлера здесь нет.");
+
 		const file = await repository.findOne({
 			where: { file_id: fileId },
 			relations: {
+				owner: true,
 				accesses: true,
 			},
 		});
@@ -116,6 +119,7 @@ export class FileController {
 		const file = await repository.findOne({
 			where: { file_id: fileId },
 			relations: {
+				owner: true,
 				accesses: true,
 			},
 		});
