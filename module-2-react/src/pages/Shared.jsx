@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {BASE_URL} from "../constants";
 import {useNavigate} from "react-router-dom";
+import {authDownload} from "../utils";
 
 export function Shared() {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export function Shared() {
         {files.map(file => <div>
             <h4>Название - {file.name}</h4>
             <p>Идентификатор - ${file.file_id}</p>
-            <a href={file.url} download={true}>Скачать</a>
+            <button onClick={() => authDownload(file.url, file.name)}>Скачать</button>
         </div>)}
     </div>
 }
