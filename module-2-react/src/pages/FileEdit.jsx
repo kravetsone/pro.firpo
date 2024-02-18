@@ -8,7 +8,7 @@ export function FileEdit() {
     const {state} = useLocation()
     const [name, setName] = useState(state.name);
     const [result, setResult] = useState();
-    
+
     useEffect(() => {
         if (!localStorage.getItem("token")) return navigate("/sign-in")
     }, []);
@@ -32,7 +32,7 @@ export function FileEdit() {
             navigate("/sign-in")
         }
         if (!res.ok) return setResult(data.message.name)
-        else setResult("Успешно загружено")
+        else setResult("Успешно изменено")
     }
 
     return <div>

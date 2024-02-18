@@ -54,7 +54,7 @@ export function FileAccess() {
         if (!res.ok) return setError(data.message?.email || data.message)
 
         setAccesses(data)
-
+        setEmail("")
     }
 
     return <div>
