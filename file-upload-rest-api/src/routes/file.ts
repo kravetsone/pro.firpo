@@ -38,7 +38,7 @@ const upload = multer({
 		// wrong extension and 2mb file-size limit
 		if (!allowedFileExtensions.includes(ext) || file.size > 2 * 1024 * 1024) {
 			console.log(ext, filename, file);
-			req.failedFiles.push(filename);
+			req.failedFiles.push(file.originalname);
 			return cb(null, false);
 		}
 

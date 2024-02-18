@@ -1,3 +1,5 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import { File, User, db } from "../db";
 import { APIError, ValidationError } from "../errors";
 
@@ -45,11 +47,19 @@ export class FileController {
 	}
 
 	static async remove(user: User, fileId: string) {
-		const file = await repository.findOneBy({
-			file_id: fileId,
+		const file = await repository.findOne({
+			where: { file_id: fileId },
+			relations: {
+				owner: true,
+			},
 		});
+
 		if (!file) throw new APIError(404, "Not found");
 		if (file.owner.id !== user.id) throw new APIError(402, "Forbidden for you");
+
+		await fs.rm(
+			`${process.cwd()}/files/${file.file_id}${path.extname(file.name)}`,
+		);
 
 		return repository.delete(file.file_id);
 	}
