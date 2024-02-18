@@ -8,6 +8,7 @@ export function FileEdit() {
     const {state} = useLocation()
     const [name, setName] = useState(state.name);
     const [result, setResult] = useState();
+    
     useEffect(() => {
         if (!localStorage.getItem("token")) return navigate("/sign-in")
     }, []);

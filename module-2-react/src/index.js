@@ -7,6 +7,7 @@ import {Files} from "./pages/Files";
 import {Shared} from "./pages/Shared";
 import {FileUpload} from "./pages/FileUpload";
 import {FileEdit} from "./pages/FileEdit";
+import {FileAccess} from "./pages/FileAccess";
 
 const router = createBrowserRouter([
     {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
         element: <FileEdit/>
     },
     {
-        path: "/shared",
+        path: "/files/accesses/:fileId",
+        element: <FileAccess/>
+    },
+    {
+        path: "/files/shared",
         element: <Shared/>
     }
 ])

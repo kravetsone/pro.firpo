@@ -58,8 +58,7 @@ export function Files() {
             <p>Доступы:</p>
             <div>
                 {file.accesses.map(access => <div>
-                    <p>{access.fullname}</p>
-                    <a href={`mailto:${access.email}`}>${access.email}</a>
+                    <p>{access.fullname} (<a href={`mailto:${access.email}`}>{access.email}</a>)</p>
                     <p>{accessType[access.type]}</p>
                 </div>)}
             </div>
@@ -70,7 +69,12 @@ export function Files() {
                 }
             })}>Редактировать
             </button>
-            <button>Изменить права</button>
+            <button onClick={() => navigate(`/files/accesses/${file.file_id}`, {
+                state: {
+                    accesses: file.accesses
+                }
+            })}>Изменить права
+            </button>
         </div>)}
     </div>
 }
