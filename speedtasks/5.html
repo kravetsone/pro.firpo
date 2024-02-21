@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Title</title>
+        <style>
+            body,
+            html {
+                height: 100%;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f0f0f0;
+            }
+            .circle {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-color: red;
+                position: relative;
+            }
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="circle" id="circle"></div>
+        <script>
+            const circle = document.getElementById("circle");
+            const circleRect = circle.getBoundingClientRect();
+            const circleCenter = {
+                x: circleRect.left + circleRect.width / 2,
+                y: circleRect.top + circleRect.height / 2,
+            };
+
+            const canvas = document.createElement("canvas");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext("2d");
+
+            document.addEventListener("mousemove", function (e) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(circleCenter.x, circleCenter.y);
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.stroke();
+            });
+        </script>
+    </body>
+</html>
