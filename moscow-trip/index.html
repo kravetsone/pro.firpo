@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="cookie-message">
+    <p>Наш сайт использует файлы cookie, чтобы улучшить работу сайта, повысить его эффективность и удобство. Продолжая использовать сайт, вы соглашаетесь на использование файлов cookie. <a href="#">Узнать больше о cookie</a></p>
+</div>
 <nav>
     <a href="/">TODO: LOGO</a>
     <ul>
@@ -16,7 +19,7 @@
             <a href="cabinet.html">Авторизация</a>
         </li>
         <li>
-            <a href="#">О нас</a>
+            <a href="#about-us">О нас</a>
         </li>
         <li>
             <a href="#">Контакты</a>
@@ -29,6 +32,7 @@
         </li>
     </ul>
 </nav>
+<main>
  <div class="slider">
      <div class="slides">
          <div class="slide">
@@ -56,5 +60,26 @@
          <div class="arrow">&#10095;</div>
      </div>
  </div>
+    <div class="auth">
+        <form class="auth-block">
+            <label>
+                E-mail:
+                <input type="email"/>
+            </label>
+            <label>
+                Password:
+                <input type="password"/>
+            </label>
+            <button>Авторизоваться</button>
+            <button>Забыл пароль</button>
+        </form>
+    </div>
+    <div id="about-us">
+        <h3>О нас</h3>
+        <p>Слоган</p>
+        <p>Описание</p>
+    </div>
+    <div class="tours"></div>
+</main>
 </body>
 </html>

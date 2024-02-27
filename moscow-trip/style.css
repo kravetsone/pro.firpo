@@ -20,6 +20,10 @@ ul {
     gap: 15px;
 }
 
+nav > ul > li {
+    cursor: pointer;
+}
+
 .slider {
     position: relative;
     overflow: hidden;
@@ -91,4 +95,55 @@ ul {
     scale: 3;
     z-index: 2;
     cursor: pointer;
+}
+
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 50px;
+}
+
+.auth-block {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#about-us {
+    text-align: center;
+}
+
+.tours {
+    display: flex;
+    flex-direction: row;
+    gap: 5px
+}
+
+.tour {
+    flex: 1 0 calc(33.33%);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.cookie-message {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.cookie-message p {
+    margin: 0;
+}
+
+.cookie-message a {
+    color: #fff;
+    text-decoration: underline;
 }
